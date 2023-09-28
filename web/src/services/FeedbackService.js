@@ -14,7 +14,7 @@ export default class FeedbackService {
   async makeRequest(url, method, data = null, params = null) {
     try {
       const response = await instance({
-        url: `${this.host()}${url}`,
+        url: `${url}`,
         method,
         data,
         params,

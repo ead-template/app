@@ -22,7 +22,7 @@ export default class AlunoService {
    */
   async updateAluno(alunoDTO) {
     try {
-      return await instance.post(`${this.host()}/api/v1/aluno`, alunoDTO)
+      return await instance.post(`/api/v1/aluno`, alunoDTO)
     } catch (error) {
       throw error
     }
@@ -37,7 +37,7 @@ export default class AlunoService {
   async changePassword(usuarioTrocaSenhaDTO) {
     try {
       const response = await instance.post(
-        `${this.host()}/api/v1/user/changePassword`,
+        `/api/v1/user/changePassword`,
         usuarioTrocaSenhaDTO,
       )
       return response.data

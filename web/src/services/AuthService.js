@@ -53,7 +53,7 @@ const AuthService = {
   },
 
   recovery: (email) => {
-    return axios.post(
+    return instance.post(
        '/api/v1/password/recovery',
       email,
     )

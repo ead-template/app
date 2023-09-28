@@ -17,6 +17,7 @@ import { LogoContainer } from '@/components/sidebar/style.jsx'
 import { Helmet } from 'react-helmet'
 import ChaskiqScrip from '@/components/chat/ChaskiqScrip'
 import Link from "next/link";
+import Image from 'next/image'
 
 /**
  * Esquema de validação para o formulário de login.
@@ -72,7 +73,7 @@ const LoginPage = () => {
                 </script>
             </Helmet>
             <LogoContainer>
-                <img src={'/assets/logo/logo.png'} alt="Logo do Ariflix" />
+                <Image src={'/assets/logo/logo.png'} alt="Logo do Ariflix" width={80} height={40} />
             </LogoContainer>
             <FormAuth>
                 <Toast ref={toast} />

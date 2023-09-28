@@ -13,6 +13,7 @@ import {
   openSidebar,
 } from '@/store/sidebar/sidebarActions.jsx'
 import SearchBar from '../search/SearchBar'
+import Image from 'next/image'
 
 
 const Header = () => {
@@ -60,7 +61,7 @@ const Header = () => {
   }
 
   const navigateToHome = () => {
-    navigate('/')
+    router.push('/')
   }
 
   return (
@@ -74,7 +75,7 @@ const Header = () => {
             onClick={navigateToHome}
             className="logo-container ml-3 sm:ml-0"
           >
-            <img src={'/assets/logo/logo.png'} alt="Logo" />
+            <Image src={'/assets/logo/logo.png'} alt="Logo" width={80} height={40} />
           </LogoContainer>
 
           {isMobile && <SearchBar shouldRedirect={true} />}
