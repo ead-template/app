@@ -1,0 +1,34 @@
+@import "primereact/resources/primereact.min.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+@import "react-quill/dist/quill.snow.css";
+
+/*@import "public/assets/css/theme-dark.css";*/
+
+body {
+    background-color: var(--surface-a);
+}
+
+.p-password-panel .p-password-meter,
+.p-password-panel .p-password-info {
+    display: none !important;
+}
+
+.remove-border{
+    border:none
+}
+
+.pdf-container {
+    width: 100%;
+}
+
+
+#ChaskiqMessengerRoot{
+    color-scheme: normal;
+}
+
+.quill-container {
+    height:  90px;
+}
+
+
