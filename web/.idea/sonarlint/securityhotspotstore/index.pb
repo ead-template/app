@@ -77,8 +77,6 @@ R
 "src/components/aula/AulaLayout.jsx,6/2/62bdb247e3a8dc98bd7bb171d16b018c7a839736
 J
 src/hocs/UseLoginCheck.jsx,0/e/0e272e9ac2a614211a993c21cc9f635a2594fe98
-E
-src/store/provider.js,c/7/c7ed05d47b9e591db9058467e255a867c2c10415
 D
 src/theme/themes.jsx,6/c/6ca7a23449e79e02e75d209fa9bccbb44d57abed
 :

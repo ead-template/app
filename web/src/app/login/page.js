@@ -39,7 +39,7 @@ const LoginPage = () => {
     const toast = useRef(null)
     const dispatch = useDispatch()
     const router = useRouter();
-    const canonicalUrl = `import.meta.env.VITE_FRONT_URL${router.pathname}`
+    const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL${router.pathname}`
 
     /**
      * Exibe uma notificação toast.

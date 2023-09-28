@@ -1,3 +1,4 @@
+'use client'
 import moment from 'moment'
 import { Divider } from 'primereact/divider'
 import { Card } from 'primereact/card'

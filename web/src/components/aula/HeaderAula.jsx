@@ -13,6 +13,7 @@ import {
 import { Button } from 'primereact/button'
 import { useMediaQuery } from 'react-responsive'
 import { Knob } from 'primereact/knob'
+import Image from 'next/image'
 
 /**
  * Componente Header para a página de aula.
@@ -87,7 +88,7 @@ const Header = () => {
           />
         ) : (
           <LogoContainer onClick={navigateToHome}>
-            <img src="assets/logo/logo.png" alt="Logo" />
+            <Image src="/assets/logo/logo.png" alt="Logo" width={80} height={40} />
           </LogoContainer>
         )}
 

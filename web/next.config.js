@@ -18,9 +18,52 @@
 //     })
 // );
 // module.exports = nextConfig;
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    reactStrictMode: true,
+    experimental: {
+        appDir: true,
+    },
+    webpack: (config, { webpack }) => {
+        // Habilitar o topLevelAwait e outras experiências
+        config.experiments = {
+            ...config.experiments,
+            topLevelAwait: true,
+        };
 
-module.exports = nextConfig
+        // Adicionar externals
+        config.externals.push({
+            sharp: "commonjs sharp",
+            canvas: "commonjs canvas",
+        });
+
+        // Adicionar plugins
+        config.plugins.push(
+            new webpack.ProvidePlugin({
+                Buffer: ["buffer", "Buffer"],
+                process: "process/browser",
+            })
+        );
+
+        // Adicionar regra para lidar com pdf.worker.js
+        config.module.rules.unshift({
+            test: /pdf\.worker\.(min\.)?js/,
+            use: [
+                {
+                    loader: "file-loader",
+                    options: {
+                        name: "[contenthash].[ext]",
+                        publicPath: "_next/static/worker",
+                        outputPath: "static/worker",
+                    },
+                },
+            ],
+        });
+
+        return config;
+    },
+};
+
+module.exports = nextConfig;
+
 

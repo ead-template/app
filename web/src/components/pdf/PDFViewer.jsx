@@ -1,6 +1,3 @@
-'use client'
-
-
 import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Document, Page } from 'react-pdf'
@@ -12,7 +9,7 @@ import { Toast } from 'primereact/toast'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { pdfjs } from 'react-pdf'
 
-pdfjs.GlobalWorkerOptions.workerSrc = '/assets/js/pdf.worker.js'
+pdfjs.GlobalWorkerOptions.workerSrc = "/_next/static/worker/8862b20797b2bc280737fc3cb531ed6c.js";
 
 const PDFViewer = ({ url }) => {
   const [numPages, setNumPages] = useState(1)
@@ -41,6 +38,7 @@ const PDFViewer = ({ url }) => {
   }, [url])
 
   const handleLoadError = (error) => {
+    console.error(error)
     setLoading(false)
     toast.current.show({
       severity: 'error',
