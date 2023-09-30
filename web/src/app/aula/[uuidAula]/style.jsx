@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Sidebar = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'isOpen',
@@ -8,4 +8,4 @@ export const Sidebar = styled.div.withConfig({
     isOpen && isOpen === 'true' ? 'translateX(0)' : 'translateX(100%)'};
   display: flex;
   flex-direction: column;
-`
+`;

@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { Image } from 'primereact/image'
+import styled from 'styled-components';
+import { Image } from 'primereact/image';
 
 export const LessonTitle = styled.h2`
   margin-left: 20px; // Espaçamento para separar do logo
   font-size: 1.5em;
   font-weight: bold;
   align-self: center; // Alinha o título verticalmente no centro
-`
+`;
 
 export const StyledContainer = styled.div`
   flex: 1;
@@ -22,7 +22,7 @@ export const StyledContainer = styled.div`
       width: 100%;
     }
   }
-`
+`;
 
 export const ContentItem = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'isCurrent',
@@ -30,7 +30,7 @@ export const ContentItem = styled.div.withConfig({
   display: flex;
   align-items: center;
   opacity: ${(props) => (props.isCurrent ? 0.5 : 1)};
-`
+`;
 
 export const PDFContainer = styled.div`
   width: 100%;
@@ -57,7 +57,7 @@ export const PDFContainer = styled.div`
   .pagination-badge {
     z-index: 100;
   }
-`
+`;
 
 export const PDFView = styled.div`
   overflow: auto;
@@ -85,14 +85,14 @@ export const PDFView = styled.div`
   @media screen and (max-width: 480px) {
     max-width: 100%;
   }
-`
+`;
 
 export const PDFLoad = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+`;
 
 export const ListaAulasStyle = styled.div`
   /* Estilos padrão */
@@ -140,7 +140,7 @@ export const ListaAulasStyle = styled.div`
     height: auto;
     width: 13.5em;
   }
-`
+`;
 
 export const CarouselAula = styled.div`
   /* Estilos padrão */
@@ -177,7 +177,7 @@ export const CarouselAula = styled.div`
       width: 18em;
     }
   }
-`
+`;
 
 export const StyledImage = styled(Image)`
   max-width: 100%;
@@ -195,4 +195,4 @@ export const StyledImage = styled(Image)`
   @media only screen and (max-width: 480px) {
     max-height: 80px;
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const DropdownWrapper = styled.div`
   .custom-dropdown .p-dropdown-label {
@@ -34,6 +34,6 @@ const DropdownWrapper = styled.div`
     background: none;
     border: none;
   }
-`
+`;
 
-export default DropdownWrapper
+export default DropdownWrapper;

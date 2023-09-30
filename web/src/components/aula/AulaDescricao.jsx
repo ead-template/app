@@ -1,10 +1,10 @@
 // AulaDescricao.jsx
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { TabView, TabPanel } from 'primereact/tabview'
-import { useMediaQuery } from 'react-responsive'
-import Avaliacoes from '../feedback/Avaliacoes'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { TabView, TabPanel } from 'primereact/tabview';
+import { useMediaQuery } from 'react-responsive';
+import Avaliacoes from '../feedback/Avaliacoes';
 
 /*
  * AulaDescricao component to display description and video.
@@ -14,7 +14,7 @@ import Avaliacoes from '../feedback/Avaliacoes'
  * @param {string} texto - The text to be displayed, it can include HTML content.
  */
 const AulaDescricao = ({ videoUrl, texto, contentList }) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   return (
     <TabView>
       <TabPanel header="Visão Geral">
@@ -31,14 +31,14 @@ const AulaDescricao = ({ videoUrl, texto, contentList }) => {
 
       {/* Você pode adicionar outros TabPanels aqui conforme necessidade */}
     </TabView>
-  )
-}
+  );
+};
 
 // Define PropTypes for the AulaDescricao component
 AulaDescricao.propTypes = {
   videoUrl: PropTypes.string,
   texto: PropTypes.string,
   contentList: PropTypes.node,
-}
+};
 
-export default AulaDescricao
+export default AulaDescricao;

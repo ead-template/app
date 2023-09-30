@@ -1,15 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { Button } from 'primereact/button'
-import { QuillField, RatingField } from './FeedbackComponents'
-import * as Yup from 'yup'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Button } from 'primereact/button';
+import { QuillField, RatingField } from './FeedbackComponents';
+import * as Yup from 'yup';
 
 const FeedbackForm = ({ onSubmit, initialValues }) => {
   const validationSchema = Yup.object().shape({
     rating: Yup.number().required('O campo classificação é obrigatório'),
     comment: Yup.string().required('O campo comentário é obrigatório'),
-  })
+  });
 
   return (
     <Formik
@@ -35,8 +35,8 @@ const FeedbackForm = ({ onSubmit, initialValues }) => {
         <Button className="mt-6" type="submit" label="Enviar Feedback" />
       </Form>
     </Formik>
-  )
-}
+  );
+};
 
 FeedbackForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
@@ -44,6 +44,6 @@ FeedbackForm.propTypes = {
     rating: PropTypes.number,
     comment: PropTypes.string,
   }).isRequired,
-}
+};
 
-export default FeedbackForm
+export default FeedbackForm;

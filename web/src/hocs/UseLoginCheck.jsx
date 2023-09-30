@@ -1,13 +1,11 @@
-"use client"
+'use client';
 // hocs/withLoginCheck.js
-
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import AuthService from '@/services/AuthService';
 import { login } from '@/store/authReducer.jsx';
-
 
 export const useLoginCheck = () => {
   const dispatch = useDispatch();
@@ -25,4 +23,3 @@ export const useLoginCheck = () => {
     }
   }, [isLoggedIn, dispatch, router]);
 };
-

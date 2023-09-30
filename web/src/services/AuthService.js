@@ -1,16 +1,16 @@
-import axios from 'axios'
-import { getEnv } from './getEnv.js'
-import Cookies from 'js-cookie'
+import axios from 'axios';
+import { getEnv } from './getEnv.js';
+import Cookies from 'js-cookie';
 
-const baseURL = process.env.NEXT_PUBLIC_HOST_API
-    , isServer = typeof window === 'undefined'
+const baseURL = process.env.NEXT_PUBLIC_HOST_API,
+  isServer = typeof window === 'undefined';
 
-console.log("baseURL: " + baseURL)
+console.log('baseURL: ' + baseURL);
 
 const instance = axios.create({
   baseURL,
   timeout: 60000,
-})
+});
 /**
  * Serviço de autenticação.
  * @namespace AuthService
@@ -25,9 +25,9 @@ const AuthService = {
   usuarioCorrente: () => {
     const conteudo = Cookies.get('usuario');
     if (conteudo) {
-      return JSON.parse(conteudo)
+      return JSON.parse(conteudo);
     } else {
-      return null
+      return null;
     }
   },
 
@@ -53,14 +53,11 @@ const AuthService = {
   },
 
   recovery: (email) => {
-    return instance.post(
-       '/api/v1/password/recovery',
-      email,
-    )
+    return instance.post('/api/v1/password/recovery', email);
   },
 
   resetPassword: (data) => {
-    return instance.post( '/api/v1/password/reset', data)
+    return instance.post('/api/v1/password/reset', data);
   },
 
   /**
@@ -71,7 +68,6 @@ const AuthService = {
    */
   token: () => {
     return Cookies.get('token');
-
   },
 
   /**
@@ -92,7 +88,7 @@ const AuthService = {
    * @return {Promise} Uma promessa que resolve com a resposta da autenticação.
    */
   auth: (credenciais) => {
-    return instance.post ('/api/v1/auth', credenciais)
+    return instance.post('/api/v1/auth', credenciais);
   },
 
   /**
@@ -103,7 +99,7 @@ const AuthService = {
    * @return {Promise} Uma promessa que resolve com a resposta do registro.
    */
   register: (user) => {
-    return instance.post( '/api/v1/register', user)
+    return instance.post('/api/v1/register', user);
   },
 
   /**
@@ -113,8 +109,8 @@ const AuthService = {
    * @return {string} O URL base da API.
    */
   host: () => {
-    return getEnv('NEXT_PUBLIC_HOST_API')
+    return getEnv('NEXT_PUBLIC_HOST_API');
   },
-}
+};
 
-export default AuthService
+export default AuthService;

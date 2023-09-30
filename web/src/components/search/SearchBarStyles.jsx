@@ -1,5 +1,5 @@
 // SearchBarStyles.js
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SearchBarContainer = styled.div`
   @media (min-width: 768px) {
@@ -14,4 +14,4 @@ export const SearchBarContainer = styled.div`
     //border-left: solid;
   }
   }
-`
+`;

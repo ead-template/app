@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SidebarWrapper = styled.div.attrs(() => ({
   className: 'p-sidebar',
@@ -18,7 +18,7 @@ export const SidebarWrapper = styled.div.attrs(() => ({
     display: flex;
     justify-content: flex-start;
   }
-`
+`;
 
 export const LogoContainer = styled.div`
   padding: 10px;
@@ -26,4 +26,4 @@ export const LogoContainer = styled.div`
   img {
     max-width: 100%;
   }
-`
+`;

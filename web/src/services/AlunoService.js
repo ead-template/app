@@ -1,5 +1,5 @@
-import instance from './Api'
-import { getEnv } from './getEnv.js'
+import instance from './Api';
+import { getEnv } from './getEnv.js';
 
 /**
  * Classe de serviço para operações relacionadas a alunos.
@@ -11,7 +11,7 @@ export default class AlunoService {
    * @return {string} O host da API.
    */
   host() {
-    return getEnv('NEXT_PUBLIC_HOST_API')
+    return getEnv('NEXT_PUBLIC_HOST_API');
   }
 
   /**
@@ -22,9 +22,9 @@ export default class AlunoService {
    */
   async updateAluno(alunoDTO) {
     try {
-      return await instance.post(`/api/v1/aluno`, alunoDTO)
+      return await instance.post(`/api/v1/aluno`, alunoDTO);
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -39,10 +39,10 @@ export default class AlunoService {
       const response = await instance.post(
         `/api/v1/user/changePassword`,
         usuarioTrocaSenhaDTO,
-      )
-      return response.data
+      );
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }

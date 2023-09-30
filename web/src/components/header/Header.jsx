@@ -1,68 +1,64 @@
-import React, { useContext } from 'react' // Importe useContext
-import { ThemeContext } from '@/theme/ThemeProvider.jsx' // Importe o contexto
-import { Button } from 'primereact/button'
-import HeaderWrapper from './HeaderWrapper.jsx'
-import { SpeedDial } from 'primereact/speeddial'
-import AuthService from '../../services/AuthService.js'
-import { useRouter } from 'next/navigation'
-import { useMediaQuery } from 'react-responsive'
-import { LogoContainer } from '../sidebar/style.jsx'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  closeSidebar,
-  openSidebar,
-} from '@/store/sidebar/sidebarActions.jsx'
-import SearchBar from '../search/SearchBar'
-import Image from 'next/image'
-
+import React, { useContext } from 'react'; // Importe useContext
+import { ThemeContext } from '@/theme/ThemeProvider.jsx'; // Importe o contexto
+import { Button } from 'primereact/button';
+import HeaderWrapper from './HeaderWrapper.jsx';
+import { SpeedDial } from 'primereact/speeddial';
+import AuthService from '../../services/AuthService.js';
+import { useRouter } from 'next/navigation';
+import { useMediaQuery } from 'react-responsive';
+import { LogoContainer } from '../sidebar/style.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { closeSidebar, openSidebar } from '@/store/sidebar/sidebarActions.jsx';
+import SearchBar from '../search/SearchBar';
+import Image from 'next/image';
 
 const Header = () => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const sidebarState = useSelector((state) => state.sidebar.visible)
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const sidebarState = useSelector((state) => state.sidebar.visible);
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   const themeItems = [
     {
       label: 'Dark',
       icon: 'pi pi-moon',
       command: () => {
-        toggleTheme('dark')
+        toggleTheme('dark');
       },
     },
     {
       label: 'Light',
       icon: 'pi pi-sun',
       command: () => {
-        toggleTheme('light')
+        toggleTheme('light');
       },
     },
-  ]
+  ];
 
   const profileItems = [
     {
       label: 'Sair',
       icon: 'pi pi-sign-out',
       command: () => {
-        AuthService.logout()
-        router.push('/login')
+        AuthService.logout();
+        router.push('/login');
       },
     },
-  ]
+  ];
 
-  const { toggleTheme } = useContext(ThemeContext)
+  const { toggleTheme } = useContext(ThemeContext);
 
   const handleToggleSidebar = () => {
     if (sidebarState) {
-      dispatch(closeSidebar())
+      dispatch(closeSidebar());
     } else {
-      dispatch(openSidebar())
+      dispatch(openSidebar());
     }
-  }
+  };
 
   const navigateToHome = () => {
-    router.push('/')
-  }
+    router.push('/');
+  };
 
   return (
     <>
@@ -75,7 +71,12 @@ const Header = () => {
             onClick={navigateToHome}
             className="logo-container ml-3 sm:ml-0"
           >
-            <Image src={'/assets/logo/logo.png'} alt="Logo" width={80} height={40} />
+            <Image
+              src={'/assets/logo/logo.png'}
+              alt="Logo"
+              width={80}
+              height={40}
+            />
           </LogoContainer>
 
           {isMobile && <SearchBar shouldRedirect={true} />}
@@ -93,9 +94,7 @@ const Header = () => {
           </div>
         )}
 
-
         <div className="flex">
-
           <SpeedDial
             model={themeItems}
             direction="down"
@@ -115,7 +114,7 @@ const Header = () => {
         </div>
       </HeaderWrapper>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

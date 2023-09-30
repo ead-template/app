@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const LayoutWrapper = styled.div`
   display: flex;
   height: 100vh;
-`
+`;
 
 export const SidebarWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => !['visible', 'isMobile'].includes(prop),
@@ -14,8 +14,8 @@ export const SidebarWrapper = styled.div.withConfig({
       : '0 0 0px'};
   overflow-x: hidden;
   transition: flex 0.5s;
-`
+`;
 
 export const ContentWrapper = styled.div`
   flex: 1;
-`
+`;

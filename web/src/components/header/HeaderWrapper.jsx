@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
   max-height: 3.5em;
@@ -53,6 +53,6 @@ const HeaderWrapper = styled.div`
       margin-left: 0; /* Remove a margem esquerda */
     }
   }
-`
+`;
 
-export default HeaderWrapper
+export default HeaderWrapper;

@@ -1,12 +1,12 @@
-import React from 'react'
-import { Menu } from 'primereact/menu'
-import { SidebarWrapper } from './style.jsx'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import { Menu } from 'primereact/menu';
+import { SidebarWrapper } from './style.jsx';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useRouter } from 'next/navigation';
-import { useMediaQuery } from 'react-responsive'
-import { Sidebar } from 'primereact/sidebar'
-import { closeSidebar } from '@/store/sidebar/sidebarActions.jsx'
+import { useMediaQuery } from 'react-responsive';
+import { Sidebar } from 'primereact/sidebar';
+import { closeSidebar } from '@/store/sidebar/sidebarActions.jsx';
 
 /*
  * SidebarComponent - Um componente de barra lateral para navegação.
@@ -16,18 +16,18 @@ import { closeSidebar } from '@/store/sidebar/sidebarActions.jsx'
  */
 const SidebarComponent = () => {
   const router = useRouter();
-  const visible = useSelector((state) => state.sidebar.visible)
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-  const dispatch = useDispatch()
+  const visible = useSelector((state) => state.sidebar.visible);
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const dispatch = useDispatch();
 
   const items = [
     {
       label: 'Início',
       icon: 'pi pi-fw pi-home',
       command: () => {
-        router.push('/')
+        router.push('/');
         if (isMobile) {
-          dispatch(closeSidebar())
+          dispatch(closeSidebar());
         }
       },
     },
@@ -42,36 +42,36 @@ const SidebarComponent = () => {
       label: 'Perfil',
       icon: 'pi pi-fw pi-user',
       command: () => {
-        router.push('/perfil')
+        router.push('/perfil');
         if (isMobile) {
-          dispatch(closeSidebar())
+          dispatch(closeSidebar());
         }
       },
     },
 
     // Adicione mais itens conforme necessário
-  ]
+  ];
 
-  if (!visible) return null
+  if (!visible) return null;
 
   const content = (
     <div className="p-sidebar-content">
       <Menu model={items} />
     </div>
-  )
+  );
 
   return isMobile ? (
     <Sidebar
       visible={visible}
       onHide={() => {
-        dispatch(closeSidebar())
+        dispatch(closeSidebar());
       }}
     >
       {content}
     </Sidebar>
   ) : (
     <SidebarWrapper visible={visible.toString()}>{content}</SidebarWrapper>
-  )
-}
+  );
+};
 
-export default SidebarComponent
+export default SidebarComponent;

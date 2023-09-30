@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { ListBox } from 'primereact/listbox'
-import { TabView, TabPanel } from 'primereact/tabview'
-import PropTypes from 'prop-types'
-import { ContentItem, StyledContainer } from './style.jsx'
-import { Checkbox } from 'primereact/checkbox'
-import { useDispatch, useSelector } from 'react-redux'
-import { desmarcarProgresso, marcarProgresso } from '../../store/AulaSlice.jsx'
+import React, { useState } from 'react';
+import { ListBox } from 'primereact/listbox';
+import { TabView, TabPanel } from 'primereact/tabview';
+import PropTypes from 'prop-types';
+import { ContentItem, StyledContainer } from './style.jsx';
+import { Checkbox } from 'primereact/checkbox';
+import { useDispatch, useSelector } from 'react-redux';
+import { desmarcarProgresso, marcarProgresso } from '../../store/AulaSlice.jsx';
 
 /*
  * A component to list and filter contents by type.
@@ -14,9 +14,9 @@ import { desmarcarProgresso, marcarProgresso } from '../../store/AulaSlice.jsx'
  * @param {Object[]} conteudos - An array of content objects to be displayed.
  */
 const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const dispatch = useDispatch()
-  const aulaCompleta = useSelector((state) => state.aula.aula)
+  const [activeIndex, setActiveIndex] = useState(0);
+  const dispatch = useDispatch();
+  const aulaCompleta = useSelector((state) => state.aula.aula);
 
   const sortedContentsByType = (type) => {
     return conteudos
@@ -25,12 +25,12 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
       .map((content, index) => ({
         ...content,
         order: index + 1, // Adicionar atributo "order" com a ordem correta
-      }))
-  }
+      }));
+  };
 
   const handleCheckboxChange = (event, content) => {
-    event.preventDefault()
-    event.stopPropagation()
+    event.preventDefault();
+    event.stopPropagation();
     if (content.progresso === null) {
       // Se o conteúdo não estiver completado, marque-o como concluído
       dispatch(
@@ -38,7 +38,7 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
           uuidConteudo: content.uuid,
           uuidAula: aulaCompleta.aula.uuid,
         }),
-      )
+      );
     } else {
       // Se o conteúdo já estiver completado, desmarque-o
       if (content.progresso && content.progresso.uuid)
@@ -47,11 +47,12 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
             uuid: content.progresso.uuid,
             type: 'conteudo',
           }),
-        )
+        );
     }
-  }
+  };
   const itemTemplate = (option, index) => {
-    const isCurrentContent = conteudoAtual && conteudoAtual.uuid === option.uuid
+    const isCurrentContent =
+      conteudoAtual && conteudoAtual.uuid === option.uuid;
 
     return (
       <ContentItem isCurrent={isCurrentContent}>
@@ -70,8 +71,8 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
           <span>{option.nome}</span>
         </div>
       </ContentItem>
-    )
-  }
+    );
+  };
 
   return (
     <StyledContainer>
@@ -97,8 +98,8 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
         </TabPanel>
       </TabView>
     </StyledContainer>
-  )
-}
+  );
+};
 
 ContentList.propTypes = {
   /**
@@ -116,6 +117,6 @@ ContentList.propTypes = {
     uuid: PropTypes.string.isRequired,
     // Outras propriedades, se necessário
   }),
-}
+};
 
-export default ContentList
+export default ContentList;

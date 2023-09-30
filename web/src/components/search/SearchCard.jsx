@@ -1,14 +1,14 @@
-import React from 'react'
-import { Card } from 'primereact/card'
-import { Button } from 'primereact/button'
-import moment from 'moment'
-import PropTypes from 'prop-types'
-import { Badge } from 'primereact/badge'
+import React from 'react';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
+import { Badge } from 'primereact/badge';
 
 const AulaCard = ({ aula, handleAulaClick }) => {
   const formatData = (dateString) => {
-    return moment(dateString).format('DD/MM/YYYY')
-  }
+    return format(new Date(dateString), 'dd/MM/yyyy');
+  };
 
   return (
     <div className="p-col-12 p-md-4 mb-3">
@@ -63,8 +63,8 @@ const AulaCard = ({ aula, handleAulaClick }) => {
         </div>
       </Card>
     </div>
-  )
-}
+  );
+};
 
 AulaCard.propTypes = {
   aula: PropTypes.shape({
@@ -80,6 +80,6 @@ AulaCard.propTypes = {
     uuid: PropTypes.string.isRequired,
   }).isRequired,
   handleAulaClick: PropTypes.func.isRequired,
-}
+};
 
-export default AulaCard
+export default AulaCard;

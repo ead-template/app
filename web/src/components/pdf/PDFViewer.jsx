@@ -1,52 +1,52 @@
-import React, { useEffect, useState, useRef } from 'react'
-import PropTypes from 'prop-types'
-import { Document, Page } from 'react-pdf'
-import { PDFContainer, PDFLoad, PDFView } from '../aula/style.jsx'
-import { Button } from 'primereact/button'
-import { Badge } from 'primereact/badge'
-import { ProgressBar } from 'primereact/progressbar'
-import { Toast } from 'primereact/toast'
-import { ProgressSpinner } from 'primereact/progressspinner'
-import { pdfjs } from 'react-pdf'
+import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { Document, Page } from 'react-pdf';
+import { PDFContainer, PDFLoad, PDFView } from '../aula/style.jsx';
+import { Button } from 'primereact/button';
+import { Badge } from 'primereact/badge';
+import { ProgressBar } from 'primereact/progressbar';
+import { Toast } from 'primereact/toast';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { pdfjs } from 'react-pdf';
 
-pdfjs.GlobalWorkerOptions.workerSrc = "/_next/static/worker/8862b20797b2bc280737fc3cb531ed6c.js";
-
+const host = window.location.origin;
+pdfjs.GlobalWorkerOptions.workerSrc = `${host}/_next/static/worker/pdf-worker.js`;
 const PDFViewer = ({ url }) => {
-  const [numPages, setNumPages] = useState(1)
-  const [pageNumber, setPageNumber] = useState(1)
-  const [loading, setLoading] = useState(true)
-  const [pageWidth, setPageWidth] = useState(0)
-  const containerRef = useRef(null)
-  const toast = useRef(null)
+  const [numPages, setNumPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [pageWidth, setPageWidth] = useState(0);
+  const containerRef = useRef(null);
+  const toast = useRef(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      setPageWidth(containerRef.current.offsetWidth)
+      setPageWidth(containerRef.current.offsetWidth);
     }
 
     const handleResize = () => {
       if (containerRef.current) {
-        setPageWidth(containerRef.current.offsetWidth)
+        setPageWidth(containerRef.current.offsetWidth);
       }
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
-    setPageNumber(1)
-  }, [url])
+    setPageNumber(1);
+  }, [url]);
 
   const handleLoadError = (error) => {
-    console.error(error)
-    setLoading(false)
+    console.error(error);
+    setLoading(false);
     toast.current.show({
       severity: 'error',
       summary: 'Erro ao Carregar PDF',
       detail:
         'Não foi possível carregar o documento. Tente novamente mais tarde.',
-    })
-  }
+    });
+  };
 
   return (
     <PDFContainer>
@@ -61,8 +61,8 @@ const PDFViewer = ({ url }) => {
           key={url}
           file={url}
           onLoadSuccess={({ numPages }) => {
-            setNumPages(numPages)
-            setLoading(false)
+            setNumPages(numPages);
+            setLoading(false);
           }}
           onLoadError={handleLoadError}
           loading={
@@ -92,8 +92,8 @@ const PDFViewer = ({ url }) => {
         <Button
           label="Anterior"
           onClick={() => {
-            setLoading(true)
-            setPageNumber(pageNumber - 1)
+            setLoading(true);
+            setPageNumber(pageNumber - 1);
           }}
           disabled={pageNumber <= 1}
           className="p-button-text"
@@ -108,19 +108,19 @@ const PDFViewer = ({ url }) => {
         <Button
           label="Próximo"
           onClick={() => {
-            setLoading(true) // Ativa carregamento antes de trocar de página
-            setPageNumber(pageNumber + 1)
+            setLoading(true); // Ativa carregamento antes de trocar de página
+            setPageNumber(pageNumber + 1);
           }}
           disabled={pageNumber >= numPages}
           className="p-button-text"
         />
       </div>
     </PDFContainer>
-  )
-}
+  );
+};
 
 PDFViewer.propTypes = {
   url: PropTypes.string.isRequired,
-}
+};
 
-export default PDFViewer
+export default PDFViewer;

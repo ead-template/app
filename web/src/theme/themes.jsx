@@ -10,10 +10,10 @@ export const darkTheme = {
   fontWeightRegular: '400', // Peso da fonte regular
   fontWeightBold: '700', // Peso da fonte em negrito
   borderRadius: '4px',
-}
+};
 
 export const lightTheme = {
   primaryColor: '#FFFFFF',
   secondaryColor: '#E50914',
   textColor: '#000000',
-}
+};

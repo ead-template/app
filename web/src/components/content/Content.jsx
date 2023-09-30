@@ -1,6 +1,6 @@
-import React from 'react'
-import { StyledContent } from './style.jsx'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { StyledContent } from './style.jsx';
+import PropTypes from 'prop-types';
 
 /**
  * Componente Content.
@@ -12,11 +12,11 @@ import PropTypes from 'prop-types'
  * @return {React.ReactNode} Componente Content.
  */
 function Content({ title, children }) {
-  return <StyledContent title={title}>{children}</StyledContent>
+  return <StyledContent title={title}>{children}</StyledContent>;
 }
 
 Content.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node.isRequired,
-}
-export default Content
+};
+export default Content;

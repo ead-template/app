@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { LogoContainer } from '../sidebar/style.jsx'
-import { LessonTitle } from './style.jsx'
-import HeaderWrapper from '../header/HeaderWrapper.jsx'
-import { desmarcarProgresso, marcarProgresso } from '@/store/AulaSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { Checkbox } from 'primereact/checkbox'
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { LogoContainer } from '../sidebar/style.jsx';
+import { LessonTitle } from './style.jsx';
+import HeaderWrapper from '../header/HeaderWrapper.jsx';
+import { desmarcarProgresso, marcarProgresso } from '@/store/AulaSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox } from 'primereact/checkbox';
 import {
   closeSidebarAula,
   openSidebarAula,
-} from '@/store/aula/sidebarAulaActions'
-import { Button } from 'primereact/button'
-import { useMediaQuery } from 'react-responsive'
-import { Knob } from 'primereact/knob'
-import Image from 'next/image'
+} from '@/store/aula/sidebarAulaActions';
+import { Button } from 'primereact/button';
+import { useMediaQuery } from 'react-responsive';
+import { Knob } from 'primereact/knob';
+import Image from 'next/image';
 
 /**
  * Componente Header para a página de aula.
@@ -27,34 +27,34 @@ import Image from 'next/image'
  * )
  */
 const Header = () => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const aulaCompleta = useSelector((state) => state.aula.aula)
-  const sidebarState = useSelector((state) => state.sidebarAula.visible)
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-  const [progressoGeral, setProgressoGeral] = useState(0)
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const aulaCompleta = useSelector((state) => state.aula.aula);
+  const sidebarState = useSelector((state) => state.sidebarAula.visible);
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const [progressoGeral, setProgressoGeral] = useState(0);
 
   const handleCheckboxChange = (e) => {
     if (e.target.checked && aulaCompleta && aulaCompleta.aula) {
-      dispatch(marcarProgresso({ uuidAula: aulaCompleta.aula.uuid }))
+      dispatch(marcarProgresso({ uuidAula: aulaCompleta.aula.uuid }));
     } else if (!e.target.checked && aulaCompleta && aulaCompleta.progresso) {
       dispatch(
         desmarcarProgresso({ uuid: aulaCompleta.progresso.uuid, type: 'aula' }),
-      )
+      );
     }
-  }
+  };
 
   const handleToggleSidebar = () => {
     if (sidebarState) {
-      dispatch(closeSidebarAula())
+      dispatch(closeSidebarAula());
     } else {
-      dispatch(openSidebarAula())
+      dispatch(openSidebarAula());
     }
-  }
+  };
 
   const navigateToHome = () => {
-    router.push('/')
-  }
+    router.push('/');
+  };
 
   useEffect(() => {
     const calcularProgressoGeral = () => {
@@ -63,18 +63,18 @@ const Header = () => {
         aulaCompleta.conteudos &&
         aulaCompleta.conteudos.length
       ) {
-        const totalConteudos = aulaCompleta.conteudos.length
+        const totalConteudos = aulaCompleta.conteudos.length;
         const conteudosCompletos = aulaCompleta.conteudos.filter(
           (conteudo) => conteudo.progresso !== null,
-        ).length
+        ).length;
 
-        return parseInt((conteudosCompletos / totalConteudos) * 100)
+        return parseInt((conteudosCompletos / totalConteudos) * 100);
       }
-      return 0
-    }
+      return 0;
+    };
 
-    setProgressoGeral(calcularProgressoGeral())
-  }, [aulaCompleta])
+    setProgressoGeral(calcularProgressoGeral());
+  }, [aulaCompleta]);
 
   return (
     <HeaderWrapper id={'header'} className="flex justify-content-between  ">
@@ -88,7 +88,12 @@ const Header = () => {
           />
         ) : (
           <LogoContainer onClick={navigateToHome}>
-            <Image src="/assets/logo/logo.png" alt="Logo" width={80} height={40} />
+            <Image
+              src="/assets/logo/logo.png"
+              alt="Logo"
+              width={80}
+              height={40}
+            />
           </LogoContainer>
         )}
 
@@ -134,7 +139,7 @@ const Header = () => {
         )}
       </div>
     </HeaderWrapper>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

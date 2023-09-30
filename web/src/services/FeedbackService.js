@@ -1,5 +1,5 @@
-import { getEnv } from './getEnv'
-import instance from './Api'
+import { getEnv } from './getEnv';
+import instance from './Api';
 
 export default class FeedbackService {
   /**
@@ -8,7 +8,7 @@ export default class FeedbackService {
    * @return {string} O host da API.
    */
   host() {
-    return getEnv('NEXT_PUBLIC_HOST_API')
+    return getEnv('NEXT_PUBLIC_HOST_API');
   }
 
   async makeRequest(url, method, data = null, params = null) {
@@ -18,16 +18,16 @@ export default class FeedbackService {
         method,
         data,
         params,
-      })
-      return response.data
+      });
+      return response.data;
     } catch (error) {
-      console.error('Erro ao fazer requisição: ', error)
-      throw new Error(error && error.response.data.message)
+      console.error('Erro ao fazer requisição: ', error);
+      throw new Error(error && error.response.data.message);
     }
   }
 
   async createFeedbackAula(feedback) {
-    return await this.makeRequest('/api/v1/feedbacks/aula', 'post', feedback)
+    return await this.makeRequest('/api/v1/feedbacks/aula', 'post', feedback);
   }
 
   async filtrarFeedbackAula(params) {
@@ -36,18 +36,18 @@ export default class FeedbackService {
       'get',
       null,
       params,
-    )
+    );
   }
 
   async summaryFeedbackAula(uuid) {
     return await this.makeRequest(
       `/api/v1/feedbacks/aula/summary/${uuid}`,
       'get',
-    )
+    );
   }
 
   async deleteFeedbackAula(uuid) {
-    return await this.makeRequest(`/api/v1/feedbacks/aula/${uuid}`, 'delete')
+    return await this.makeRequest(`/api/v1/feedbacks/aula/${uuid}`, 'delete');
   }
 
   async updateFeedbackAula(uuid, updatedFeedback) {
@@ -55,6 +55,6 @@ export default class FeedbackService {
       `/api/v1/feedbacks/aula/${uuid}`,
       'put',
       updatedFeedback,
-    )
+    );
   }
 }

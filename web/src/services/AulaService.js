@@ -1,5 +1,5 @@
-import instance from './Api'
-import { getEnv } from './getEnv.js'
+import instance from './Api';
+import { getEnv } from './getEnv.js';
 
 /**
  * Classe de serviço para operações relacionadas a aulas.
@@ -11,7 +11,7 @@ export default class AulaService {
    * @return {string} O host da API.
    */
   host() {
-    return getEnv('NEXT_PUBLIC_HOST_API')
+    return getEnv('NEXT_PUBLIC_HOST_API');
   }
 
   /**
@@ -26,10 +26,10 @@ export default class AulaService {
     try {
       const response = await instance.get(
         `/api/v1/aula/${uuidAula}/aluno/${uuidAluno}`,
-      )
-      return response.data
+      );
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -42,13 +42,10 @@ export default class AulaService {
    */
   async marcarProgresso(progressoData) {
     try {
-      const response = await instance.post(
-        `/api/v1/progresso`,
-        progressoData,
-      )
-      return response.data
+      const response = await instance.post(`/api/v1/progresso`, progressoData);
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -61,14 +58,14 @@ export default class AulaService {
    */
   async desmarcarProgresso(uuid) {
     try {
-      const response = await instance.delete(
-        `/api/v1/progresso/${uuid}`,
-      )
-      return response.data
+      const response = await instance.delete(`/api/v1/progresso/${uuid}`);
+      return response.data;
     } catch (error) {
       throw error.response && error.response.data && error.response.data.message
         ? new Error(error.response.data.message)
-        : new Error('An error occurred while fetching the complete class data.')
+        : new Error(
+            'An error occurred while fetching the complete class data.',
+          );
     }
   }
   async buscarAulasPorTermo({
@@ -79,7 +76,7 @@ export default class AulaService {
     direcao = 'ASC',
   }) {
     try {
-      console.log(search)
+      console.log(search);
       const response = await instance.get(`/api/v1/aula/buscar`, {
         params: {
           search,
@@ -88,12 +85,12 @@ export default class AulaService {
           ordenacao,
           direcao,
         },
-      })
-      return response.data
+      });
+      return response.data;
     } catch (error) {
       throw error.response && error.response.data && error.response.data.message
         ? new Error(error.response.data.message)
-        : new Error('Um erro ocorreu durante a busca das aulas.')
+        : new Error('Um erro ocorreu durante a busca das aulas.');
     }
   }
 }

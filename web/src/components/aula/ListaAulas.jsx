@@ -1,13 +1,17 @@
-import React, { useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {buscarAulasPorAluno, limparErro, limparErroAposTempo} from '@/store/inscricaoSlice.jsx'
-import { Button } from 'primereact/button'
-import { Carousel } from 'primereact/carousel'
-import { Toast } from 'primereact/toast'
-import { useRouter } from 'next/navigation'
-import { CarouselAula, ListaAulasStyle, StyledImage } from './style.jsx'
-import { Tooltip } from 'primereact/tooltip'
-import { useMediaQuery } from 'react-responsive'
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  buscarAulasPorAluno,
+  limparErro,
+  limparErroAposTempo,
+} from '@/store/inscricaoSlice.jsx';
+import { Button } from 'primereact/button';
+import { Carousel } from 'primereact/carousel';
+import { Toast } from 'primereact/toast';
+import { useRouter } from 'next/navigation';
+import { CarouselAula, ListaAulasStyle, StyledImage } from './style.jsx';
+import { Tooltip } from 'primereact/tooltip';
+import { useMediaQuery } from 'react-responsive';
 
 /**
  * Componente que lista as aulas de um aluno.
@@ -16,37 +20,37 @@ import { useMediaQuery } from 'react-responsive'
  * @return {React.ReactNode} O componente renderizado de lista de aulas.
  */
 function ListaAulas() {
-  const aulas = useSelector((state) => state.inscricao.inscricoes)
-  const dispatch = useDispatch()
-  const error = useSelector((state) => state.inscricao.error)
-  const toast = useRef(null)
-  const router = useRouter()
-  const smalDesktop = useMediaQuery({ query: '(max-width: 1600px)' })
-  const isMobile = useMediaQuery({ query: '(max-width: 1199px)' })
+  const aulas = useSelector((state) => state.inscricao.inscricoes);
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.inscricao.error);
+  const toast = useRef(null);
+  const router = useRouter();
+  const smalDesktop = useMediaQuery({ query: '(max-width: 1600px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 1199px)' });
 
   useEffect(() => {
     const params = {
       tamanho: 10,
       pagina: 0,
       ordenacao: 'createdAt',
-    }
+    };
 
     dispatch(buscarAulasPorAluno(params)).catch(() => {
       setTimeout(() => {
         dispatch(limparErro());
       }, 3000);
     });
-  }, [dispatch])
+  }, [dispatch]);
 
   useEffect(() => {
     if (error && toast.current) {
-      toast.current.show({ severity: 'error', summary: error, life: 3000 })
+      toast.current.show({ severity: 'error', summary: error, life: 3000 });
     }
-  }, [error])
+  }, [error]);
 
   const handleAulaClick = (uuidAula) => {
-    router.push(`/aula/${uuidAula}`)
-  }
+    router.push(`/aula/${uuidAula}`);
+  };
 
   /**
    * Renders a template for a specific class.
@@ -55,8 +59,8 @@ function ListaAulas() {
    * @return {JSX.Element} The rendered template.
    */
   const aulaTemplate = (aula) => {
-    const uniqueId = `descricao-limited-${aula.inscricao.aula.uuid}`
-    const isConcluida = !!(aula.progresso && aula.progresso.dataConclusao)
+    const uniqueId = `descricao-limited-${aula.inscricao.aula.uuid}`;
+    const isConcluida = !!(aula.progresso && aula.progresso.dataConclusao);
     return (
       <ListaAulasStyle className="border-1 surface-border border-round m-1 sm:m-2 text-center py-3 sm:py-5 px-1 sm:px-3 flex justify-content-between flex-column">
         <div className="mb-3">
@@ -108,8 +112,8 @@ function ListaAulas() {
           </div>
         </div>
       </ListaAulasStyle>
-    )
-  }
+    );
+  };
 
   return (
     <CarouselAula>
@@ -128,7 +132,7 @@ function ListaAulas() {
         ''
       )}
     </CarouselAula>
-  )
+  );
 }
 
-export default ListaAulas
+export default ListaAulas;

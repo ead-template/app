@@ -1,15 +1,15 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Formik, Form, ErrorMessage } from 'formik'
-import { Button } from 'primereact/button'
-import * as Yup from 'yup'
-import { Toast } from 'primereact/toast'
-import Content from '../content/Content.jsx'
-import { Divider } from 'primereact/divider'
-import { FormContainer, Title } from './style.jsx'
-import { changePassword } from '@/store/alunoSlice.jsx'
-import { Password } from 'primereact/password'
-import { Helmet } from 'react-helmet'
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form, ErrorMessage } from 'formik';
+import { Button } from 'primereact/button';
+import * as Yup from 'yup';
+import { Toast } from 'primereact/toast';
+import Content from '../content/Content.jsx';
+import { Divider } from 'primereact/divider';
+import { FormContainer, Title } from './style.jsx';
+import { changePassword } from '@/store/alunoSlice.jsx';
+import { Password } from 'primereact/password';
+import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 
 const validationSchema = Yup.object({
@@ -27,34 +27,33 @@ const validationSchema = Yup.object({
   confirmarSenha: Yup.string()
     .required('Confirmação de senha é obrigatória')
     .oneOf([Yup.ref('novaSenha')], 'As senhas não coincidem'),
-})
+});
 
 const TrocaDeSenha = () => {
-  const dispatch = useDispatch()
-  const toast = useRef(null)
+  const dispatch = useDispatch();
+  const toast = useRef(null);
   const router = useRouter();
-  const alunoState = useSelector((state) => state.aluno)
+  const alunoState = useSelector((state) => state.aluno);
   const canonicalUrl = `${process.env.NEXT_PUBLIC_FRONT_URL}${router.pathname}`;
-
 
   useEffect(() => {
     if (alunoState.status === 'succeeded') {
-      showToast('success', 'Senha atualizada com sucesso!')
+      showToast('success', 'Senha atualizada com sucesso!');
     } else if (alunoState.status === 'failed') {
       showToast(
         'error',
         alunoState.error ? alunoState.error : 'Erro ao atualizar a senha',
-      )
+      );
     }
-  }, [alunoState.status])
+  }, [alunoState.status]);
 
   const showToast = (severity, summary) => {
-    toast.current.show({ severity, summary, life: 3000 })
-  }
+    toast.current.show({ severity, summary, life: 3000 });
+  };
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Segurança - Ariflix</title>
         <meta
           name="description"
@@ -71,7 +70,7 @@ const TrocaDeSenha = () => {
             url: 'https://ariflix.app.br/reset-password',
           })}
         </script>
-      </Helmet>
+      </Head>
       <Content>
         <Title>Troca de Senha</Title>
         <Toast ref={toast} />
@@ -85,35 +84,35 @@ const TrocaDeSenha = () => {
             }}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-              await dispatch(changePassword(values))
+              await dispatch(changePassword(values));
             }}
           >
             {({ errors, touched, setFieldValue, values, isSubmitting }) => {
               const calculatePasswordStrength = (password) => {
-                let strength = 0
-                const missingAttributes = []
+                let strength = 0;
+                const missingAttributes = [];
 
                 if (password.length < 8)
-                  missingAttributes.push('Pelo menos 8 caracteres')
+                  missingAttributes.push('Pelo menos 8 caracteres');
 
-                if (/[A-Z]/.test(password)) strength += 25
-                else missingAttributes.push('Letra maiúscula')
+                if (/[A-Z]/.test(password)) strength += 25;
+                else missingAttributes.push('Letra maiúscula');
 
-                if (/[a-z]/.test(password)) strength += 25
-                else missingAttributes.push('Letra minúscula')
+                if (/[a-z]/.test(password)) strength += 25;
+                else missingAttributes.push('Letra minúscula');
 
-                if (/\d/.test(password)) strength += 25
-                else missingAttributes.push('Número')
+                if (/\d/.test(password)) strength += 25;
+                else missingAttributes.push('Número');
 
-                if (/\W/.test(password)) strength += 25
-                else missingAttributes.push('Caractere especial')
+                if (/\W/.test(password)) strength += 25;
+                else missingAttributes.push('Caractere especial');
 
-                return { strength, missingAttributes }
-              }
+                return { strength, missingAttributes };
+              };
 
               const { strength, missingAttributes } = calculatePasswordStrength(
                 values.novaSenha,
-              )
+              );
 
               const header = (
                 <div className="p-p-2">
@@ -140,7 +139,7 @@ const TrocaDeSenha = () => {
                     minúsculas, números e caracteres especiais.)
                   </p>
                 </div>
-              )
+              );
 
               const footer = (
                 <>
@@ -151,7 +150,7 @@ const TrocaDeSenha = () => {
                     )}
                   </div>
                 </>
-              )
+              );
               return (
                 <Form>
                   <div className="p-fluid p-formgrid p-grid">
@@ -249,13 +248,13 @@ const TrocaDeSenha = () => {
                     />
                   </div>
                 </Form>
-              )
+              );
             }}
           </Formik>
         </FormContainer>
       </Content>
     </>
-  )
-}
+  );
+};
 
-export default TrocaDeSenha
+export default TrocaDeSenha;

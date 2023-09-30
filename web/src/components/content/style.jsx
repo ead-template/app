@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Card } from 'primereact/card'
+import styled from 'styled-components';
+import { Card } from 'primereact/card';
 
 export const StyledContent = styled(Card)`
   padding: 0.5em;
@@ -15,4 +15,4 @@ export const StyledContent = styled(Card)`
       padding: 0.5em !important;
     }
   }
-`
+`;

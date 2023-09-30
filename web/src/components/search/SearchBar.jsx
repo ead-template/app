@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { buscarAulasPorTermo, clearError } from '@/store/AulaSlice'
-import { InputText } from 'primereact/inputtext' // Importe o InputText
-import { Button } from 'primereact/button'
-import { Toast } from 'primereact/toast'
-import { SearchBarContainer } from './SearchBarStyles'
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { buscarAulasPorTermo, clearError } from '@/store/AulaSlice';
+import { InputText } from 'primereact/inputtext'; // Importe o InputText
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
+import { SearchBarContainer } from './SearchBarStyles';
 import { useRouter } from 'next/navigation';
-import PropTypes from 'prop-types'
-import { useMediaQuery } from 'react-responsive'
-import { Dialog } from 'primereact/dialog'
+import PropTypes from 'prop-types';
+import { useMediaQuery } from 'react-responsive';
+import { Dialog } from 'primereact/dialog';
 
 const SearchBar = ({ shouldRedirect }) => {
-  const [search, setSearch] = useState('')
-  const [showModal, setShowModal] = useState(false)
-  const dispatch = useDispatch()
-  const isLoading = useSelector((state) => state.aula.isLoading)
-  const error = useSelector((state) => state.aula.error)
-  const toast = useRef(null)
+  const [search, setSearch] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.aula.isLoading);
+  const error = useSelector((state) => state.aula.error);
+  const toast = useRef(null);
   const router = useRouter();
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   const handleSearch = () => {
     try {
-      dispatch(buscarAulasPorTermo({ search }))
+      dispatch(buscarAulasPorTermo({ search }));
       if (shouldRedirect && router.pathname !== '/search') {
         router.push('/search');
       }
@@ -32,20 +32,20 @@ const SearchBar = ({ shouldRedirect }) => {
         summary: 'Erro',
         detail: e,
         life: 3000,
-      })
+      });
     }
-  }
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      handleSearch()
+      handleSearch();
     }
-  }
+  };
 
   const toggleModal = () => {
     // Função para alternar modal
-    setShowModal(!showModal)
-  }
+    setShowModal(!showModal);
+  };
 
   const renderFooter = () => {
     return (
@@ -58,8 +58,8 @@ const SearchBar = ({ shouldRedirect }) => {
           disabled={isLoading}
         />
       </div>
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     if (error) {
@@ -68,12 +68,12 @@ const SearchBar = ({ shouldRedirect }) => {
         summary: 'Erro',
         detail: error,
         life: 3000,
-      })
+      });
       setTimeout(() => {
-        dispatch(clearError())
-      }, 3000)
+        dispatch(clearError());
+      }, 3000);
     }
-  }, [error, dispatch])
+  }, [error, dispatch]);
 
   return (
     <SearchBarContainer
@@ -121,10 +121,10 @@ const SearchBar = ({ shouldRedirect }) => {
         {isLoading && <i className="pi pi-spin pi-spinner"></i>}
       </Dialog>
     </SearchBarContainer>
-  )
-}
+  );
+};
 
 SearchBar.propTypes = {
   shouldRedirect: PropTypes.bool.isRequired,
-}
-export default SearchBar
+};
+export default SearchBar;

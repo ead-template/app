@@ -1,5 +1,5 @@
-import instance from './Api'
-import { getEnv } from './getEnv.js'
+import instance from './Api';
+import { getEnv } from './getEnv.js';
 
 /**
  * Classe de serviço para operações relacionadas a inscrições.
@@ -11,7 +11,7 @@ export default class InscricaoService {
    * @return {string} O host da API.
    */
   host() {
-    return getEnv('NEXT_PUBLIC_HOST_API')
+    return getEnv('NEXT_PUBLIC_HOST_API');
   }
 
   /**
@@ -23,15 +23,14 @@ export default class InscricaoService {
    */
   async buscarAulasPorAluno(params) {
     try {
-      const response = await instance.get(
-        `/api/v1/inscricoes/aluno`,
-        { params },
-      )
-      return response.data
+      const response = await instance.get(`/api/v1/inscricoes/aluno`, {
+        params,
+      });
+      return response.data;
     } catch (error) {
       throw new Error(
         'Falha ao buscar as aulas para o estudante. Verifique sua conexão com a internet e tente novamente.',
-      )
+      );
     }
   }
 }

@@ -1,26 +1,33 @@
-'use client'
-import moment from 'moment'
-import { Divider } from 'primereact/divider'
-import { Card } from 'primereact/card'
-import { Rating } from 'primereact/rating'
-import ReactQuill from 'react-quill'
-import React from 'react'
+'use client';
+import { Divider } from 'primereact/divider';
+import { Card } from 'primereact/card';
+import { Rating } from 'primereact/rating';
+import ReactQuill from 'react-quill';
+import React from 'react';
+import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 function capitalizeFirstLetterOfEachWord(str) {
   return str
     .toLowerCase()
     .split(' ')
     .map((word) => {
-      return word.charAt(0).toUpperCase() + word.slice(1)
+      return word.charAt(0).toUpperCase() + word.slice(1);
     })
-    .join(' ')
+    .join(' ');
 }
-export const RatingInfo = ({ rating, date }) => (
-  <div className="flex">
-    <Rating value={rating} readOnly stars={5} cancel={false} />
-    <p className="ml-3"> {moment(date).fromNow()}</p>
-  </div>
-)
+export const RatingInfo = ({ rating, date }) => {
+  const formattedDate = formatDistanceToNow(new Date(date), {
+    addSuffix: true,
+    locale: ptBR,
+  });
+  return (
+    <div className="flex">
+      <Rating value={rating} readOnly stars={5} cancel={false} />
+      <p className="ml-3"> {formattedDate}</p>
+    </div>
+  );
+};
 
 export const FeedbackCard = ({ feedback, index }) => (
   <Card key={index} className="p-col-12">
@@ -31,7 +38,7 @@ export const FeedbackCard = ({ feedback, index }) => (
     </div>
     <Divider align="center" />
   </Card>
-)
+);
 
 export const RatingField = ({ field, form }) => {
   return (
@@ -39,13 +46,13 @@ export const RatingField = ({ field, form }) => {
       {...field}
       onChange={(e) => {
         if (e.value !== field.value) {
-          form.setFieldValue(field.name, e.value)
+          form.setFieldValue(field.name, e.value);
         }
       }}
       cancel={false}
     />
-  )
-}
+  );
+};
 
 export const QuillField = ({ field, form }) => {
   return (
@@ -54,8 +61,8 @@ export const QuillField = ({ field, form }) => {
       {...field}
       onChange={(html) => form.setFieldValue(field.name, html)}
       onBlur={() => {
-        form.setFieldTouched(field.name, true, false)
+        form.setFieldTouched(field.name, true, false);
       }}
     />
-  )
-}
+  );
+};

@@ -18,52 +18,66 @@
 //     })
 // );
 // module.exports = nextConfig;
+
+const runtimeCaching = require('next-pwa/cache');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+});
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
-    experimental: {
-        appDir: true,
-    },
-    webpack: (config, { webpack }) => {
-        // Habilitar o topLevelAwait e outras experiências
-        config.experiments = {
-            ...config.experiments,
-            topLevelAwait: true,
-        };
+  reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
+  webpack: (config, { webpack }) => {
+    // Habilitar o topLevelAwait e outras experiências
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    };
 
-        // Adicionar externals
-        config.externals.push({
-            sharp: "commonjs sharp",
-            canvas: "commonjs canvas",
-        });
+    // Adicionar externals
+    config.externals.push({
+      sharp: 'commonjs sharp',
+      canvas: 'commonjs canvas',
+    });
 
-        // Adicionar plugins
-        config.plugins.push(
-            new webpack.ProvidePlugin({
-                Buffer: ["buffer", "Buffer"],
-                process: "process/browser",
-            })
-        );
+    // Adicionar plugins
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process/browser',
+      }),
+    );
 
-        // Adicionar regra para lidar com pdf.worker.js
-        config.module.rules.unshift({
-            test: /pdf\.worker\.(min\.)?js/,
-            use: [
-                {
-                    loader: "file-loader",
-                    options: {
-                        name: "[contenthash].[ext]",
-                        publicPath: "_next/static/worker",
-                        outputPath: "static/worker",
-                    },
-                },
-            ],
-        });
+    // Adicionar regra para lidar com pdf.worker.js
+    config.module.rules.unshift({
+      test: /pdf\.worker\.(min\.)?js/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: 'pdf-worker.js',
+            publicPath: '_next/static/worker',
+            outputPath: 'static/worker',
+          },
+        },
+      ],
+    });
 
-        return config;
-    },
+    return config;
+  },
 };
 
-module.exports = nextConfig;
-
-
+module.exports = withPWA({
+  ...nextConfig,
+  pwa: {
+    dest: 'public', // o destino dos arquivos do worker
+    register: true,
+    skipWaiting: true,
+    runtimeCaching,
+  },
+});

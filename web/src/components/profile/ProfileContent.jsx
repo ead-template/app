@@ -1,52 +1,53 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Formik, Form } from 'formik'
-import { Button } from 'primereact/button'
-import { InputText } from 'primereact/inputtext'
-import { Calendar } from 'primereact/calendar'
-import * as Yup from 'yup'
-import { Toast } from 'primereact/toast'
-import { updateAluno } from '@/store/alunoSlice.jsx'
-import Content from '../content/Content.jsx'
-import { Dropdown } from 'primereact/dropdown'
-import { Divider } from 'primereact/divider'
-import { FormContainer, Title } from './style.jsx'
-import PhoneInput from '../layout/PhoneInput.jsx'
+'use client';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form } from 'formik';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Calendar } from 'primereact/calendar';
+import * as Yup from 'yup';
+import { Toast } from 'primereact/toast';
+import { updateAluno } from '@/store/alunoSlice.jsx';
+import Content from '../content/Content.jsx';
+import { Dropdown } from 'primereact/dropdown';
+import { Divider } from 'primereact/divider';
+import { FormContainer, Title } from './style.jsx';
+import PhoneInput from '../layout/PhoneInput.jsx';
 
 const validationSchema = Yup.object({
   telefone: Yup.string(),
   tipoAluno: Yup.string(),
   dataNascimento: Yup.date().nullable().typeError('Data inválida'),
-})
+});
 
 const tipoAlunoOptions = [
   { label: 'Estudante', value: 'ESTUDANTE' },
   { label: 'Outros', value: 'OUTROS' },
   { label: 'Trabalho', value: 'TRABALHO' },
-]
+];
 
 const UpdateAlunoInfo = () => {
-  const dispatch = useDispatch() // Usando o dispatch do Redux
-  const toast = useRef(null)
+  const dispatch = useDispatch(); // Usando o dispatch do Redux
+  const toast = useRef(null);
 
-  const alunoState = useSelector((state) => state.aluno)
-  const user = useSelector((state) => state.auth.user)
+  const alunoState = useSelector((state) => state.aluno);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (alunoState.status === 'succeeded') {
-      showToast('success', 'Dados atualizados com sucesso!')
+      showToast('success', 'Dados atualizados com sucesso!');
     } else if (alunoState.status === 'failed') {
       showToast(
         'error',
         alunoState.error
           ? alunoState.error
           : 'Ocorreu um erro ao atualizar. Tente novamente.',
-      )
+      );
     }
-  }, [alunoState.status])
+  }, [alunoState.status]);
   const showToast = (severity, summary) => {
-    toast.current.show({ severity, summary, life: 3000 })
-  }
+    toast.current.show({ severity, summary, life: 3000 });
+  };
 
   return (
     <>
@@ -67,22 +68,22 @@ const UpdateAlunoInfo = () => {
           <Divider />
           <Formik
             initialValues={{
-              telefone: user.aluno.telefone || '',
-              tipoAluno: user.aluno.tipoAluno || '',
-              dataNascimento: user.aluno.dataNascimento || null,
+              telefone: user?.aluno?.telefone || '',
+              tipoAluno: user?.aluno?.tipoAluno || '',
+              dataNascimento: user?.aluno?.dataNascimento || null,
             }}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
               try {
-                const cleanedPhone = values.telefone.replace(/[^\d]/g, '')
+                const cleanedPhone = values.telefone.replace(/[^\d]/g, '');
                 const payload = {
                   ...values,
                   telefone: cleanedPhone,
-                  uuid: user.aluno.uuid,
-                }
-                await dispatch(updateAluno(payload))
+                  uuid: user?.aluno?.uuid,
+                };
+                await dispatch(updateAluno(payload));
               } catch (error) {
-                console.error(error)
+                console.error(error);
               }
             }}
           >
@@ -145,13 +146,13 @@ const UpdateAlunoInfo = () => {
                     disabled={isSubmitting}
                   />
                 </Form>
-              )
+              );
             }}
           </Formik>
         </FormContainer>
       </Content>
     </>
-  )
-}
+  );
+};
 
-export default UpdateAlunoInfo
+export default UpdateAlunoInfo;

@@ -1,8 +1,8 @@
-import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from './sidebarActions'
+import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from './sidebarActions';
 
 const initialState = {
   visible: false,
-}
+};
 
 const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,15 +10,15 @@ const sidebarReducer = (state = initialState, action) => {
       return {
         ...state,
         visible: true,
-      }
+      };
     case CLOSE_SIDEBAR:
       return {
         ...state,
         visible: false,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default sidebarReducer
+export default sidebarReducer;

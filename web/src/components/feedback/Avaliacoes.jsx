@@ -1,13 +1,15 @@
 // AvaliacoesTab.jsx
 
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Card } from 'primereact/card'
-import { Button } from 'primereact/button'
-import { Paginator } from 'primereact/paginator'
-import { Rating } from 'primereact/rating'
-import { Dialog } from 'primereact/dialog'
-import { Menu } from 'primereact/menu'
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { Paginator } from 'primereact/paginator';
+import { Rating } from 'primereact/rating';
+import { Dialog } from 'primereact/dialog';
+import { Menu } from 'primereact/menu';
+import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 import {
   createFeedbackAula,
@@ -16,49 +18,51 @@ import {
   removeFeedbackAula,
   summaryFeedbackAula,
   updateFeedbackAula,
-} from '@/store/feedback/feedbackSlice'
-import { Dropdown } from 'primereact/dropdown'
-import { Toast } from 'primereact/toast'
-import { Divider } from 'primereact/divider'
-import { ConfirmDialog } from 'primereact/confirmdialog'
-import moment from 'moment'
-import { FeedbackCard } from './FeedbackComponents'
-import { RatingSummary } from './RatingSummary'
-import FeedbackForm from './FeedbackForm' // ajuste o caminho para o seu arquivo de slice
+} from '@/store/feedback/feedbackSlice';
+import { Dropdown } from 'primereact/dropdown';
+import { Toast } from 'primereact/toast';
+import { Divider } from 'primereact/divider';
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { FeedbackCard } from './FeedbackComponents';
+import { RatingSummary } from './RatingSummary';
+import FeedbackForm from './FeedbackForm'; // ajuste o caminho para o seu arquivo de slice
 
 function capitalizeFirstLetterOfEachWord(str) {
   return str
     .toLowerCase()
     .split(' ')
     .map((word) => {
-      return word.charAt(0).toUpperCase() + word.slice(1)
+      return word.charAt(0).toUpperCase() + word.slice(1);
     })
-    .join(' ')
+    .join(' ');
 }
 
 const AvaliacoesTab = () => {
-  const toast = useRef(null)
-  const dispatch = useDispatch()
-  const feedback = useSelector((state) => state.feedback) // ajuste de acordo com sua árvore de estado
-  const aulaCompleta = useSelector((state) => state.aula.aula)
+  const toast = useRef(null);
+  const dispatch = useDispatch();
+  const feedback = useSelector((state) => state.feedback); // ajuste de acordo com sua árvore de estado
+  const aulaCompleta = useSelector((state) => state.aula.aula);
 
-  const [minRating, setMinRating] = useState(null)
-  const [maxRating, setMaxRating] = useState(null)
-  const [totalElementos, setTotalElementos] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [showDialog, setShowDialog] = useState(false)
-  const [selectedFeedback, setSelectedFeedback] = useState(null)
-  const [selectedEditFeedback, setEditSelectedFeedback] = useState(null)
-  const [initialValues, setInitialValues] = useState({ rating: 0, comment: '' })
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
-  const [currentFeedbackUuid, setCurrentFeedbackUuid] = useState(null)
+  const [minRating, setMinRating] = useState(null);
+  const [maxRating, setMaxRating] = useState(null);
+  const [totalElementos, setTotalElementos] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedFeedback, setSelectedFeedback] = useState(null);
+  const [selectedEditFeedback, setEditSelectedFeedback] = useState(null);
+  const [initialValues, setInitialValues] = useState({
+    rating: 0,
+    comment: '',
+  });
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [currentFeedbackUuid, setCurrentFeedbackUuid] = useState(null);
 
-  const menu = useRef(null)
+  const menu = useRef(null);
 
   const handleMenuToggle = (event, fb) => {
-    setSelectedFeedback(fb)
-    menu.current.toggle(event)
-  }
+    setSelectedFeedback(fb);
+    menu.current.toggle(event);
+  };
 
   const menuItems = [
     {
@@ -71,13 +75,13 @@ const AvaliacoesTab = () => {
       icon: 'pi pi-fw pi-trash',
       command: () => handleRemoveFeedback(selectedFeedback.uuid),
     },
-  ]
+  ];
 
   const handleEditFeedback = (feedback) => {
-    setInitialValues({ rating: feedback.rating, comment: feedback.comment })
-    setEditSelectedFeedback(feedback.uuid) // Supondo que uuid seja o identificador único do feedback
-    setShowDialog(true)
-  }
+    setInitialValues({ rating: feedback.rating, comment: feedback.comment });
+    setEditSelectedFeedback(feedback.uuid); // Supondo que uuid seja o identificador único do feedback
+    setShowDialog(true);
+  };
   const handleUpdateFeedback = async (values) => {
     try {
       await dispatch(
@@ -85,25 +89,25 @@ const AvaliacoesTab = () => {
           uuid: selectedEditFeedback,
           feedback: values,
         }),
-      )
-      showToast('success', 'Feedback atualizado com sucesso!')
-      setShowDialog(false)
-      setEditSelectedFeedback(null)
+      );
+      showToast('success', 'Feedback atualizado com sucesso!');
+      setShowDialog(false);
+      setEditSelectedFeedback(null);
     } catch (error) {
       showToast(
         'error',
         'Ocorreu um erro ao editar o feedback. Tente novamente.',
-      )
+      );
     }
-  }
+  };
   const handleRemoveFeedback = (feedbackId) => {
-    setCurrentFeedbackUuid(feedbackId)
-    setShowConfirmDialog(true)
-  }
+    setCurrentFeedbackUuid(feedbackId);
+    setShowConfirmDialog(true);
+  };
 
   const showToast = (severity, summary) => {
-    toast.current.show({ severity, summary, life: 3000 })
-  }
+    toast.current.show({ severity, summary, life: 3000 });
+  };
   useEffect(() => {
     const params = {
       minRating,
@@ -111,39 +115,39 @@ const AvaliacoesTab = () => {
       aula:
         (aulaCompleta && aulaCompleta.aula && aulaCompleta.aula.uuid) || null,
       me: null,
-    }
+    };
 
     dispatch(filtrarFeedbackAula(params)).then((response) => {
       if (response && response.totalElementos !== undefined) {
-        setTotalElementos(response.totalElementos)
+        setTotalElementos(response.totalElementos);
       }
-    })
-  }, [dispatch, minRating, maxRating, rowsPerPage, aulaCompleta?.aula?.uuid])
+    });
+  }, [dispatch, minRating, maxRating, rowsPerPage, aulaCompleta?.aula?.uuid]);
 
   useEffect(() => {
     if (aulaCompleta && aulaCompleta.aula && aulaCompleta.aula.uuid) {
-      dispatch(summaryFeedbackAula(aulaCompleta.aula.uuid))
-      dispatch(meFeedbackAula({ aula: aulaCompleta.aula.uuid }))
+      dispatch(summaryFeedbackAula(aulaCompleta.aula.uuid));
+      dispatch(meFeedbackAula({ aula: aulaCompleta.aula.uuid }));
     }
-  }, [dispatch, aulaCompleta?.aula?.uuid])
+  }, [dispatch, aulaCompleta?.aula?.uuid]);
 
   const handleCreateFeedback = async (values, { setSubmitting }) => {
     try {
-      const request = { ...values, uuid: aulaCompleta.aula.uuid }
-      const resultAction = await dispatch(createFeedbackAula(request))
+      const request = { ...values, uuid: aulaCompleta.aula.uuid };
+      const resultAction = await dispatch(createFeedbackAula(request));
       if (createFeedbackAula.fulfilled.match(resultAction)) {
-        showToast('success', 'Feedback adicionado com sucesso!')
+        showToast('success', 'Feedback adicionado com sucesso!');
       } else if (createFeedbackAula.rejected.match(resultAction)) {
         if (
           resultAction.payload.message ===
           'Feedback já existe para o usuário na aula especificada'
         ) {
-          showToast('warn', 'Você já enviou um feedback para esta aula.')
+          showToast('warn', 'Você já enviou um feedback para esta aula.');
         } else {
           showToast(
             'error',
             'Ocorreu um erro ao adicionar o feedback. Tente novamente.',
-          )
+          );
         }
       }
     } catch (error) {
@@ -152,19 +156,19 @@ const AvaliacoesTab = () => {
         feedback.error ===
           'Feedback já existe para o usuário na aula especificada'
       ) {
-        showToast('warn', 'Você já enviou um feedback para esta aula.')
+        showToast('warn', 'Você já enviou um feedback para esta aula.');
       } else {
         showToast(
           'error',
           'Ocorreu um erro ao adicionar o feedback. Tente novamente.',
-        )
+        );
       }
-      console.error(error)
+      console.error(error);
     } finally {
-      setSubmitting(false)
-      setShowDialog(false)
+      setSubmitting(false);
+      setShowDialog(false);
     }
-  }
+  };
 
   return (
     <div className="p-grid p-justify-between">
@@ -190,7 +194,13 @@ const AvaliacoesTab = () => {
               </div>
               <div className="flex">
                 <Rating value={fb.rating} readOnly stars={5} cancel={false} />
-                <p className="ml-3"> {moment(fb.date).fromNow()}</p>
+                <p className="ml-3">
+                  {' '}
+                  {formatDistanceToNow(new Date(fb.date), {
+                    addSuffix: true,
+                    locale: ptBR,
+                  })}
+                </p>
               </div>
               <div dangerouslySetInnerHTML={{ __html: fb.comment }} />
             </div>
@@ -207,8 +217,8 @@ const AvaliacoesTab = () => {
           <Button
             label="Adicionar Feedback"
             onClick={() => {
-              setShowDialog(true)
-              setInitialValues({ rating: 0, comment: '' })
+              setShowDialog(true);
+              setInitialValues({ rating: 0, comment: '' });
             }}
           />
         </Card>
@@ -228,17 +238,17 @@ const AvaliacoesTab = () => {
         accept={async () => {
           if (currentFeedbackUuid) {
             try {
-              await dispatch(removeFeedbackAula(currentFeedbackUuid))
-              showToast('success', 'Feedback removido com sucesso!')
+              await dispatch(removeFeedbackAula(currentFeedbackUuid));
+              showToast('success', 'Feedback removido com sucesso!');
             } catch (error) {
-              console.error(error)
+              console.error(error);
               showToast(
                 'error',
                 'Ocorreu um erro ao remover o feedback. Tente novamente.',
-              )
+              );
             }
-            setCurrentFeedbackUuid(null)
-            setShowConfirmDialog(false)
+            setCurrentFeedbackUuid(null);
+            setShowConfirmDialog(false);
           }
         }}
       />
@@ -301,7 +311,7 @@ const AvaliacoesTab = () => {
                 null,
               me: false,
             }),
-          )
+          );
         }}
       />
 
@@ -318,7 +328,7 @@ const AvaliacoesTab = () => {
         />
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-export default AvaliacoesTab
+export default AvaliacoesTab;
