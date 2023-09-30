@@ -10,7 +10,6 @@ import FormAuth from './style.jsx';
 import { LogoContainer } from '@/components/sidebar/style.jsx';
 import AuthService from '@/services/AuthService.js';
 import { useRouter } from 'next/navigation';
-import Head from 'next/head';
 import ChaskiqScrip from '@/components/chat/ChaskiqScrip';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -48,7 +47,7 @@ const AccountRecoveryPage = () => {
 
   return (
     <>
-      <Head>
+      <head>
         <title>Recuperação de conta - Ariflix</title>
         <meta
           name="description"
@@ -70,7 +69,7 @@ const AccountRecoveryPage = () => {
             url: 'https://ariflix.app.br/account-recovery',
           })}
         </script>
-      </Head>
+      </head>
       <LogoContainer>
         <Image
           src={'/assets/logo/logo.png'}

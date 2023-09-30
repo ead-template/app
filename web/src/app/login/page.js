@@ -14,7 +14,6 @@ import { Password } from 'primereact/password';
 import FormAuth from './style.jsx';
 import { Divider } from 'primereact/divider';
 import { LogoContainer } from '@/components/sidebar/style.jsx';
-import Head from 'next/head';
 import ChaskiqScrip from '@/components/chat/ChaskiqScrip';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -40,7 +39,7 @@ const LoginPage = () => {
   const toast = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
-  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL${router.pathname}`;
+  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL`;
 
   /**
    * Exibe uma notificação toast.
@@ -54,7 +53,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <Head>
+      <head>
         <title>Login - Ariflix</title>
         <meta
           name="description"
@@ -71,13 +70,13 @@ const LoginPage = () => {
             url: 'https://ariflix.app.br/login',
           })}
         </script>
-      </Head>
+      </head>
       <LogoContainer>
         <Image
           src={'/assets/logo/logo.png'}
           alt="Logo do Ariflix"
-          width={80}
-          height={40}
+          width={96}
+          height={42}
         />
       </LogoContainer>
       <FormAuth>

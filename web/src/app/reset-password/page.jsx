@@ -12,7 +12,6 @@ import { LogoContainer } from '@/components/sidebar/style.jsx';
 import AuthService from '../../services/AuthService.js';
 import { Divider } from 'primereact/divider';
 import { useRouter } from 'next/navigation';
-import Head from 'next/head';
 import ChaskiqScrip from '../../components/chat/ChaskiqScrip';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
@@ -57,7 +56,7 @@ const ResetPasswordPage = ({ searchParams }) => {
 
   return (
     <>
-      <Head>
+      <head>
         <title>Recuperar Senha - Ariflix</title>
         <meta
           name="description"
@@ -74,7 +73,7 @@ const ResetPasswordPage = ({ searchParams }) => {
             url: 'https://ariflix.app.br/reset-password',
           })}
         </script>
-      </Head>
+      </head>
       <LogoContainer>
         <Image
           src={'/assets/logo/logo.png'}

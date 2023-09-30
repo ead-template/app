@@ -33,7 +33,14 @@ export default function RootLayout({ children }) {
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+      </Head>
+      <head>
+        <link
+          id="theme-css"
+          href={`/assets/css/theme-dark.css`}
+          rel="stylesheet"
+        ></link>
+        <link rel="manifest" href="/manifest.json" />
         <title>Ariflix</title>
         <link rel="canonical" href="https://ariflix.app.br/" />
         <link
@@ -105,7 +112,7 @@ export default function RootLayout({ children }) {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/manifest.json" />
+
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#000000" />
@@ -127,13 +134,6 @@ export default function RootLayout({ children }) {
         <meta property="og:image" content="/logo_1200x630.jpeg" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ariflix" />
-      </Head>
-      <head>
-        <link
-          id="theme-css"
-          href={`/assets/css/theme-dark.css`}
-          rel="stylesheet"
-        ></link>
       </head>
       <Script id="pwa" strategy="afterInteractive">
         {`

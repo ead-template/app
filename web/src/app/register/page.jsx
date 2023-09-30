@@ -13,7 +13,6 @@ import FormAuth from './style.jsx';
 import AuthService from '../../services/AuthService.js';
 import { LogoContainer } from '@/components/sidebar/style.jsx';
 import { useRouter } from 'next/navigation';
-import Head from 'next/head';
 import ChaskiqScrip from '../../components/chat/ChaskiqScrip';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -39,7 +38,7 @@ const RegisterPage = ({ searchParams }) => {
   const router = useRouter();
   const invite = searchParams.invite;
   const toast = useRef(null);
-  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL${router.pathname}`;
+  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL$`;
 
   const showToast = (severity, summary) => {
     toast.current.show({ severity, summary, life: 3000 });
@@ -48,14 +47,14 @@ const RegisterPage = ({ searchParams }) => {
 
   return (
     <>
-      <Head>
+      <head>
         <title>Register - Ariflix</title>
         <link rel="canonical" href={canonicalUrl} />
         <meta
           name="description"
           content="Registre-se para acessar seus cursos de medicina de alta qualidade e totalmente credenciados."
         />
-      </Head>
+      </head>
       <LogoContainer>
         <Image
           src={'/assets/logo/logo.png'}

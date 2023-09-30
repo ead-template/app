@@ -15,6 +15,7 @@ const SearchPage = () => {
   const term = useSelector((state) => state.aula.searchTerm);
   const dispatch = useDispatch();
   const router = useRouter();
+  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL$`;
 
   const handleAulaClick = (uuidAula) => {
     router.push(`/aula/${uuidAula}`);
@@ -34,6 +35,23 @@ const SearchPage = () => {
 
   return (
     <ProtectedLayout>
+      <head>
+        <title>Login - Ariflix</title>
+        <meta
+          name="description"
+          content="Busque os cursos de medicina de alta qualidade e totalmente credenciados."
+        />
+        <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'WebPage',
+            name: 'Search Page',
+            description: 'This page searchs for courses by term.',
+            url: 'https://ariflix.app.br/login',
+          })}
+        </script>
+      </head>
       <Content title="Busca">
         <div>
           {resultados && (

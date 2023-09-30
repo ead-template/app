@@ -11,7 +11,6 @@ import { Sidebar } from './style.jsx';
 import AulaDescricao from '@/components/aula/AulaDescricao.jsx';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/navigation';
-import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 const AulaPage = ({ params }) => {
@@ -23,7 +22,8 @@ const AulaPage = ({ params }) => {
   const sidebarState = useSelector((state) => state.sidebarAula.visible);
   const toast = useRef(null);
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL${router.pathname}`;
+  console.log(router.pathname);
+  const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL$`;
 
   useEffect(() => {
     dispatch(buscarAulaCompleta(uuidAula));
@@ -58,7 +58,7 @@ const AulaPage = ({ params }) => {
 
   return (
     <AulaLayout>
-      <Head>
+      <head>
         <title>
           {aulaCompleta && aulaCompleta.aula
             ? aulaCompleta.aula.titulo
@@ -74,7 +74,7 @@ const AulaPage = ({ params }) => {
           }
         />
         <meta name="author" content="Renan Ribeiro Lage" />
-      </Head>
+      </head>
       <Toast ref={toast} />
       {aulaCompleta && aulaCompleta.aula ? (
         <div className="flex">

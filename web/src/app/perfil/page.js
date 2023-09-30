@@ -26,13 +26,28 @@ const ProfilePage = () => {
   const [currentPage, setCurrentPage] = useState('profile');
 
   return (
-    <ProtectedLayout>
-      <TabMenu model={items} />
+    <>
+      <head>
+        <title>Ariflix - Perfil</title>
+        <link rel="canonical" href="https://ariflix.app.br/" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'WebPage',
+            name: 'Profile Page',
+            description: 'This page allows the user to edit their profile.',
+            url: 'https://ariflix.app.br/login',
+          })}
+        </script>
+      </head>
+      <ProtectedLayout>
+        <TabMenu model={items} />
 
-      {currentPage === 'profile' && <PerfilPage />}
+        {currentPage === 'profile' && <PerfilPage />}
 
-      {currentPage === 'security' && <SecurityContent />}
-    </ProtectedLayout>
+        {currentPage === 'security' && <SecurityContent />}
+      </ProtectedLayout>
+    </>
   );
 };
 
