@@ -5,6 +5,7 @@ import React from 'react';
 import { Providers } from '@/app/provider';
 import * as Sentry from '@sentry/react';
 import Script from 'next/script';
+import PropTypes from 'prop-types';
 
 // Configuração do Sentry
 Sentry.init({
@@ -20,6 +21,12 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
+/**
+ * Renders the root layout for the application.
+ *
+ * @param {Object} children - The child components to be rendered.
+ * @return {JSX.Element} The root layout component.
+ */
 export default function RootLayout({ children }) {
   return (
     <html lang="pt">
@@ -162,3 +169,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+RootLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};

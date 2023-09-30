@@ -74,6 +74,9 @@ const nextConfig = {
 
 module.exports = withPWA({
   ...nextConfig,
+  images: {
+    domains: ['ariflix.s3.amazonaws.com'],
+  },
   pwa: {
     dest: 'public', // o destino dos arquivos do worker
     register: true,

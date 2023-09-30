@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { buscarAulasPorTermo, clearError } from '@/store/AulaSlice';
-import { InputText } from 'primereact/inputtext'; // Importe o InputText
+import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { SearchBarContainer } from './SearchBarStyles';

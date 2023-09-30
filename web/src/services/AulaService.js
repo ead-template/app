@@ -68,6 +68,17 @@ export default class AulaService {
           );
     }
   }
+  /**
+   * Asynchronously searches for lessons based on a search term.
+   *
+   * @param {Object} options - An object containing the search options.
+   * @param {string} options.search - The search term.
+   * @param {number} [options.pagina=0] - The page number.
+   * @param {number} [options.tamanho=10] - The size of each page.
+   * @param {string} [options.ordenacao='titulo'] - The field to sort the results by.
+   * @param {string} [options.direcao='ASC'] - The direction of the sort.
+   * @return {Promise} A promise that resolves to the search results.
+   */
   async buscarAulasPorTermo({
     search,
     pagina = 0,

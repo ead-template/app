@@ -15,7 +15,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Knob } from 'primereact/knob';
 import Image from 'next/image';
 
-/**
+/*
  * Componente Header para a página de aula.
  * Exibe um header personalizado que inclui o título da aula, barra de progresso, checkbox para marcar a conclusão da aula,
  * e botões para controlar a visibilidade da barra lateral e navegar para a página inicial.

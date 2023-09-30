@@ -4,7 +4,6 @@ import YouTubeVideo from '../video/YouTubeVideo.jsx';
 import { useDispatch } from 'react-redux';
 import { marcarProgresso } from '@/store/AulaSlice.jsx';
 import dynamic from 'next/dynamic';
-import { buscarAulasPorAluno } from '@/store/inscricaoSlice';
 
 const DynamicPDFViewer = dynamic(() => import('../pdf/PDFViewer.jsx'), {
   ssr: false, // Desativa a renderização no lado do servidor para este componente

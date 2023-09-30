@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import Head from 'next/head';
 import ChaskiqScrip from '../../components/chat/ChaskiqScrip';
 import Image from 'next/image';
+import PropTypes from 'prop-types';
 
 /**
  * Esquema de validação para o formulário de recuperação de senha.
@@ -258,6 +259,12 @@ const ResetPasswordPage = ({ searchParams }) => {
       <ChaskiqScrip />
     </>
   );
+};
+
+ResetPasswordPage.propTypes = {
+  searchParams: PropTypes.shape({
+    token: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ResetPasswordPage;

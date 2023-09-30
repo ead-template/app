@@ -17,6 +17,7 @@ import Head from 'next/head';
 import ChaskiqScrip from '../../components/chat/ChaskiqScrip';
 import Image from 'next/image';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('O nome é obrigatório'),
@@ -34,9 +35,9 @@ const validationSchema = Yup.object({
     .required('Confirme a senha'),
 });
 
-const RegisterPage = ({ params }) => {
+const RegisterPage = ({ searchParams }) => {
   const router = useRouter();
-  const invite = params.invite;
+  const invite = searchParams.invite;
   const toast = useRef(null);
   const canonicalUrl = `process.env.NEXT_PUBLIC_FRONT_URL${router.pathname}`;
 
@@ -290,6 +291,12 @@ const RegisterPage = ({ params }) => {
       <ChaskiqScrip />
     </>
   );
+};
+
+RegisterPage.propTypes = {
+  searchParams: PropTypes.shape({
+    invite: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default RegisterPage;

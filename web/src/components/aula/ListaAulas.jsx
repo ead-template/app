@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  buscarAulasPorAluno,
-  limparErro,
-  limparErroAposTempo,
-} from '@/store/inscricaoSlice.jsx';
+import { buscarAulasPorAluno, limparErro } from '@/store/inscricaoSlice.jsx';
 import { Button } from 'primereact/button';
 import { Carousel } from 'primereact/carousel';
 import { Toast } from 'primereact/toast';
@@ -96,11 +92,9 @@ function ListaAulas() {
           />
 
           {aula.inscricao.aula.videoUrl && (
-            <video
-              controls
-              width="100%"
-              src={aula.inscricao.aula.videoUrl}
-            ></video>
+            <video controls width="100%" src={aula.inscricao.aula.videoUrl}>
+              <track kind="captions" />
+            </video>
           )}
           <div className="mt-2 flex flex-wrap gap-2 justify-content-center">
             <Button

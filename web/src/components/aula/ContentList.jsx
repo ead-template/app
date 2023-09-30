@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ContentItem, StyledContainer } from './style.jsx';
 import { Checkbox } from 'primereact/checkbox';
 import { useDispatch, useSelector } from 'react-redux';
-import { desmarcarProgresso, marcarProgresso } from '../../store/AulaSlice.jsx';
+import { desmarcarProgresso, marcarProgresso } from '@/store/AulaSlice.jsx';
 
 /*
  * A component to list and filter contents by type.
@@ -65,8 +65,15 @@ const ContentList = ({ conteudos, onContentSelect, conteudoAtual }) => {
         />
         <span className="p-checkbox-label">{option.order}.</span>
         <div
+          role="button"
+          tabIndex={0}
           style={{ marginLeft: '10px', cursor: 'pointer', flexGrow: 1 }}
           onClick={() => onContentSelect(option)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onContentSelect(option);
+            }
+          }}
         >
           <span>{option.nome}</span>
         </div>

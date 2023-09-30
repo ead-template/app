@@ -19,7 +19,11 @@ const AulaDescricao = ({ videoUrl, texto, contentList }) => {
     <TabView>
       <TabPanel header="Visão Geral">
         <h4>Descrição</h4>
-        {videoUrl && <video controls width="100%" src={videoUrl}></video>}
+        {videoUrl && (
+          <video controls width="100%" src={videoUrl}>
+            <track kind="captions" />
+          </video>
+        )}
 
         <div dangerouslySetInnerHTML={{ __html: texto }} />
       </TabPanel>

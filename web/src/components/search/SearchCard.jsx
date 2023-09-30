@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import { Badge } from 'primereact/badge';
+import Image from 'next/image';
 
 const AulaCard = ({ aula, handleAulaClick }) => {
   const formatData = (dateString) => {
@@ -15,10 +16,11 @@ const AulaCard = ({ aula, handleAulaClick }) => {
       <Card title={aula.title}>
         <div className="flex p-jc-start">
           <div className="mr-2 ml-2 mt-6">
-            <img
+            <Image
               src={aula.fileUrl}
               alt={aula.title}
-              style={{ width: '100px', marginRight: '20px' }}
+              style={{ width: '100px' }}
+              className="mr-6"
             />
           </div>
           <div>

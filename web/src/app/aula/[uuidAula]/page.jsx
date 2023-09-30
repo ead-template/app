@@ -12,6 +12,7 @@ import AulaDescricao from '@/components/aula/AulaDescricao.jsx';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 
 const AulaPage = ({ params }) => {
   const router = useRouter();
@@ -108,6 +109,12 @@ const AulaPage = ({ params }) => {
       )}
     </AulaLayout>
   );
+};
+
+AulaPage.propTypes = {
+  params: PropTypes.shape({
+    uuidAula: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default AulaPage;

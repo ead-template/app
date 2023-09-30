@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from 'primereact/card';
 import { ProgressBar } from 'primereact/progressbar';
 import { Rating } from 'primereact/rating';

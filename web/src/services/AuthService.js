@@ -2,10 +2,7 @@ import axios from 'axios';
 import { getEnv } from './getEnv.js';
 import Cookies from 'js-cookie';
 
-const baseURL = process.env.NEXT_PUBLIC_HOST_API,
-  isServer = typeof window === 'undefined';
-
-console.log('baseURL: ' + baseURL);
+const baseURL = process.env.NEXT_PUBLIC_HOST_API;
 
 const instance = axios.create({
   baseURL,
@@ -47,10 +44,10 @@ const AuthService = {
    * @function removeUsuarioCorrente
    * @memberof AuthService
    */
-  removeUsuarioCorrente: () => {
-    Cookies.remove('usuario');
-    Cookies.remove('token');
-  },
+  // removeUsuarioCorrente: () => {
+  //   Cookies.remove('usuario');
+  //   Cookies.remove('token');
+  // },
 
   recovery: (email) => {
     return instance.post('/api/v1/password/recovery', email);

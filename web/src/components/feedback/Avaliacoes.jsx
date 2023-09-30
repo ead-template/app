@@ -8,7 +8,7 @@ import { Paginator } from 'primereact/paginator';
 import { Rating } from 'primereact/rating';
 import { Dialog } from 'primereact/dialog';
 import { Menu } from 'primereact/menu';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import {
@@ -27,6 +27,12 @@ import { FeedbackCard } from './FeedbackComponents';
 import { RatingSummary } from './RatingSummary';
 import FeedbackForm from './FeedbackForm'; // ajuste o caminho para o seu arquivo de slice
 
+/**
+ * Capitalizes the first letter of each word in a given string.
+ *
+ * @param {string} str - The string to capitalize.
+ * @return {string} The string with the first letter of each word capitalized.
+ */
 function capitalizeFirstLetterOfEachWord(str) {
   return str
     .toLowerCase()

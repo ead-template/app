@@ -4,9 +4,16 @@ import { Card } from 'primereact/card';
 import { Rating } from 'primereact/rating';
 import ReactQuill from 'react-quill';
 import React from 'react';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import PropTypes from 'prop-types';
 
+/**
+ * Capitalizes the first letter of each word in a given string.
+ *
+ * @param {string} str - The input string.
+ * @return {string} The modified string with the first letter of each word capitalized.
+ */
 function capitalizeFirstLetterOfEachWord(str) {
   return str
     .toLowerCase()
@@ -28,6 +35,10 @@ export const RatingInfo = ({ rating, date }) => {
     </div>
   );
 };
+RatingInfo.propTypes = {
+  rating: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
+};
 
 export const FeedbackCard = ({ feedback, index }) => (
   <Card key={index} className="p-col-12">
@@ -39,6 +50,17 @@ export const FeedbackCard = ({ feedback, index }) => (
     <Divider align="center" />
   </Card>
 );
+FeedbackCard.propTypes = {
+  feedback: PropTypes.shape({
+    user: PropTypes.shape({
+      nome: PropTypes.string.isRequired,
+    }),
+    rating: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+    comment: PropTypes.string,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export const RatingField = ({ field, form }) => {
   return (
@@ -53,6 +75,10 @@ export const RatingField = ({ field, form }) => {
     />
   );
 };
+RatingField.propTypes = {
+  field: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired,
+};
 
 export const QuillField = ({ field, form }) => {
   return (
@@ -65,4 +91,8 @@ export const QuillField = ({ field, form }) => {
       }}
     />
   );
+};
+QuillField.propTypes = {
+  field: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired,
 };
